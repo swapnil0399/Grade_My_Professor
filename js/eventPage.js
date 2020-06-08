@@ -1,11 +1,4 @@
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.todo == "showPageAction") {
-        chrome.pageAction.show(sender.tab.id);
-        sendResponse();
-    }
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.request == 'get') {
         let profName = request.body.professor_name;
         let courseName = request.body.course_name;

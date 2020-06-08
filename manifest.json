@@ -31,10 +31,6 @@
         "scripts": ["js/eventPage.js"],
         "persistent": false
     },
-    "permissions": [
-        "tabs",
-        "https://coursebook.utdallas.edu/*"
-    ],
     "web_accessible_resources": [
         "templates/template.html",
         "templates/error.html"

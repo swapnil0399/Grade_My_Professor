@@ -1,5 +1,4 @@
 const badges = ['primary', 'success', 'danger', 'warning', 'info'];
-chrome.runtime.sendMessage({ todo: "showPageAction" });
 
 $(document).ready(function() {
     $('.button-link').on('click', function() {

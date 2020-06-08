@@ -1,0 +1,27 @@
+.nav-pills>li>a {
+    padding: 6px;
+}
+
+.nav-pills {
+    display: flex;
+}
+
+.nav-pills>li {
+    justify-content: space-between;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    background-color: #5cb85c;
+    color: #f7f7f7;
+}
+
+.table-borderless>tbody>tr>td {
+    border: none;
+    font-size: 0.9em;
+}
+
+.table {
+    margin: auto;
+    width: 95% !important;
+}

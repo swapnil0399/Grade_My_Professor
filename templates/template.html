@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+
+<tr class="courseinfo__overviewtable__tr">
+    <th class="courseinfo__overviewtable__th text-right">
+        Professor Rating:
+    </th>
+    <td class="courseinfo__overviewtable__td">
+        <div id="rate_header" class="container">
+            <div class="row">
+                <div id="prof_header" class="col-md-5 align-self-center">
+                    <p class="h4">
+                        <b><%= prof %></b>
+                    </p>
+                </div>
+                <div id="rate_stats" class="col-md-7 container">
+                    <div class="row">
+                        <div id="overall_quality" class="col-md-4 align-self-center">
+                            <p class="h5 text-center">
+                                <% if (body.overall_quality < 3) { %>
+                                    <b style="color: #d9534f;"><%= format(body.overall_quality) %></b>
+                                    <% } else if(body.overall_quality >= 3 && body.overall_quality < 4) { %>
+                                        <b style="color: #f0ad4e;"><%= format(body.overall_quality) %></b>
+                                        <% } else { %>
+                                            <b style="color: #5cb85c;"><%= format(body.overall_quality) %></b>
+                                            <% } %>
+                                                <sup><small> / 5</small></sup>
+                            </p>
+                            <div class="text-center font-weight-normal" style="font-size: 0.8em;">Overall Quality</div>
+                        </div>
+                        <div id="take_again" class="col-md-4 align-self-center">
+                            <p class="h5 text-center">
+                                <% var string = body.would_take_again; %>
+                                    <% string = string.substring(0, string.length - 1); %>
+                                        <% if (string < 40) { %>
+                                            <b style="color: #d9534f;"><%= body.would_take_again %></b>
+                                            <% } else if(string >= 40 && string < 70) { %>
+                                                <b style="color: #f0ad4e;"><%= body.would_take_again %></b>
+                                                <% } else { %>
+                                                    <b style="color: #5cb85c;"><%= body.would_take_again %></b>
+                                                    <% } %>
+                            </p>
+                            <div class="text-center font-weight-normal" style="font-size: 0.8em;">Would Take Again?
+                            </div>
+                        </div>
+                        <div id="level_of_difficulty" class="col-md-4 align-self-center">
+                            <p class="h5 text-center">
+                                <% if (body.level_of_difficulty >= 4) { %>
+                                    <b style="color: #d9534f;"><%= format(body.level_of_difficulty) %></b>
+                                    <% } else if(body.level_of_difficulty < 4 && body.level_of_difficulty >= 3) { %>
+                                        <b style="color: #f0ad4e;"><%= format(body.level_of_difficulty) %></b>
+                                        <% } else { %>
+                                            <b style="color: #5cb85c;"><%= format(body.level_of_difficulty) %></b>
+                                            <% } %>
+                                                <sup><small> / 5</small></sup>
+                            </p>
+                            <div class="text-center font-weight-normal" style="font-size: 0.8em;">Level of Difficulty
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rate_comments" class="mt-3">
+            <div id="comment_tabs">
+                <% let courseNo = course.substring(course.indexOf(" ") + 1, course.indexOf(".")); %>
+                    <% body.comments.data.sort((x,y) => { %>
+                        <% let objectOne = x.course.includes(courseNo); %>
+                            <% let objectTwo = y.course.includes(courseNo); %>
+                                <% return ((objectOne === objectTwo) ? 0 : objectOne? -1 : 1 ); %>
+                                    <% }); %>
+                                        <ul class="nav nav-pills" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#rate-tab-<%= id %>-mhr" role="tab">Most Helpful Comment</a>
+                                            </li>
+                                            <% body.comments.data.forEach(function(comment, index){ %>
+                                                <li class="nav-item">
+                                                    <% if (comment.course.includes(courseNo)) { %>
+                                                        <a class="nav-link" style="color: #f0ad4e;" data-toggle="tab" href="#rate-tab-<%= id %>-<%= index + 1 %>" role="tab">
+                                                            <%= index + 1 %>
+                                                        </a>
+                                                        <% } else { %>
+                                                            <a class="nav-link" style="color: #d9534f;" data-toggle="tab" href="#rate-tab-<%= id %>-<%= index + 1 %>" role="tab">
+                                                                <%= index + 1 %>
+                                                            </a>
+                                                            <% } %>
+                                                </li>
+                                                <% }); %>
+                                        </ul>
+            </div>
+            <div id="comment_content" class="tab-content mt-2">
+                <div class="tab-pane fade show active" id="rate-tab-<%= id %>-mhr" role="tabpanel">
+                    <div class="container border border-dark p-2">
+                        <p class="text-justify">
+                            <%= body.most_helpful_comment.comment %>
+                        </p>
+                    </div>
+                </div>
+                <% body.comments.data.forEach(function(comment, index){ %>
+                    <div class="tab-pane fade" id="rate-tab-<%= id %>-<%= index + 1 %>" role="tabpanel">
+
+                        <div class="container border border-dark p-2">
+                            <div class="row">
+                                <div class="col-md-8 border-right border-dark" id="comment_block">
+                                    <div class="comment_info border-bottom border-dark">
+                                        <div class="row">
+                                            <div class="col-md-6 h6 align-self-center">
+                                                <b><%= comment.course %> </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-6 align-self-center">
+                                                        <p class="h6 text-center">
+                                                            <% if (comment.quality < 3) { %>
+                                                                <b style="color: #d9534f;"><%= format(comment.quality) %></b>
+                                                                <% } else if(comment.quality >= 3 && comment.quality < 4) { %>
+                                                                    <b style="color: #f0ad4e;"><%= format(comment.quality) %></b>
+                                                                    <% } else { %>
+                                                                        <b style="color: #5cb85c;"><%= format(comment.quality) %></b>
+                                                                        <% } %>
+                                                                            <sup><small> / 5</small></sup>
+                                                        </p>
+                                                        <div class="text-center font-weight-normal" style="font-size: 0.8em;">Quality</div>
+                                                    </div>
+                                                    <div class="col-md-6 align-self-center">
+                                                        <p class="h6 text-center">
+                                                            <% if (comment.difficulty >= 4) { %>
+                                                                <b style="color: #d9534f;"><%= format(comment.difficulty) %></b>
+                                                                <% } else if(comment.difficulty < 4 && comment.difficulty >= 3) { %>
+                                                                    <b style="color: #f0ad4e;"><%= format(comment.difficulty) %></b>
+                                                                    <% } else { %>
+                                                                        <b style="color: #5cb85c;"><%= format(comment.difficulty) %></b>
+                                                                        <% } %>
+                                                                            <sup><small> / 5</small></sup>
+                                                        </p>
+                                                        <div class="text-center font-weight-normal" style="font-size: 0.8em;">Level of Difficulty</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="mt-1" id="comment_data">
+                                        <p class="text-justify">
+                                            <%= comment.comment %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="container col-md-4 p-2" id="comment_meta">
+
+                                    <!-- Meta Data Space-->
+                                    <table class="table table-borderless table-striped">
+                                        <tbody>
+                                            <% for( let [key, value] of Object.entries(comment.metadata) ) { %>
+                                                <tr>
+                                                    <td>
+                                                        <b><%= key %></b>:
+                                                    </td>
+                                                    <td>
+                                                        <%= value %>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% }); %>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div id="rate_footer" class="container mt-3">
+            <div class="row">
+                <div class="col-md-10" id="rate_tags">
+                    <% body.tags.forEach(function(tag, index){ %>
+                        <span class="badge badge-pill badge-<%= badges[index]%>"> <%= tag %></span>
+                        <% }); %>
+                </div>
+                <div class="col-md-2">
+                    <a href="https://www.ratemyprofessors.com/ShowRatings.jsp?tid=<%= body.rmp_id%>&showMyProfs=true" class="btn btn-sm btn-success text-white py-0 btn-block" target="blank" style="font-size: 0.8em;"><b>Go</b></a>
+                    <a href="https://www.ratemyprofessors.com/AddRating.jsp?tid=<%= body.rmp_id%>" class="btn btn-sm btn-primary text-white py-0 btn-block" target="blank" style="font-size: 0.8em;"><b>Rate</b></a>
+                </div>
+            </div>
+        </div>
+        <!-- Brand -->
+        <div class="container mt-2">
+            <span class="float-right">
+                Developed By <a href="https://swapnilagrawal.me" target="blank">Swapnil Agrawal</a>
+                
+            </span>
+
+        </div>
+    </td>
+</tr>
+<% function format(str) { %>
+    <% if (str.indexOf(".") !== -1) { %>
+        <% return str; %>
+            <% } else { %>
+                <% return (str + '.0'); %>
+                    <% } %>
+                        <% } %>

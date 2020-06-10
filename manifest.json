@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Grade My UTD Professor",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "icons": {
         "16": "icons/icon_16.png",
         "48": "icons/icon_48.png",

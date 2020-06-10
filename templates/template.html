@@ -82,7 +82,7 @@
                                         <ul class="nav nav-pills" id="myTab" role="tablist">
                                             <% if (Object.keys(body.most_helpful_comment).length !== 0) { %>
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#rate-tab-<%= id %>-mhr" role="tab">Most Helpful Comment</a>
+                                                    <a class="nav-link" data-toggle="tab" href="#rate-tab-<%= id %>-mhr" role="tab">Most Helpful Comment</a>
                                                 </li>
                                                 <% } %>
                                                     <% body.comments.data.forEach(function(comment, index){ %>
@@ -102,7 +102,7 @@
             </div>
             <div id="comment_content" class="tab-content mt-2">
                 <% if (Object.keys(body.most_helpful_comment).length !== 0) { %>
-                    <div class="tab-pane fade show active" id="rate-tab-<%= id %>-mhr" role="tabpanel">
+                    <div class="tab-pane fade" id="rate-tab-<%= id %>-mhr" role="tabpanel">
                         <div class="container border border-dark p-2">
                             <p class="text-justify">
                                 <%= body.most_helpful_comment.comment %>
@@ -183,6 +183,7 @@
                                 </div>
                             </div>
                             <% }); %>
+
             </div>
         </div>
 
@@ -204,12 +205,13 @@
         <div class="container mt-2">
             <span class="float-right">
                 Developed By <a href="https://swapnilagrawal.me" target="blank">Swapnil Agrawal</a>
-                
+
             </span>
 
         </div>
     </td>
 </tr>
+
 <% function format(str) { %>
     <% if (str.indexOf(".") !== -1) { %>
         <% return str; %>

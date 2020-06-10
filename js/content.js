@@ -76,6 +76,10 @@ addLinkToActions = function(reference) {
                             result = ejs.render(data, response);
                             element = $(child_content).find('tbody tr:nth-child(4)').eq(1);
                             $(result).insertAfter(element);
+                            $("#comment_tabs").find("a.nav-link").first().addClass("show");
+                            $("#comment_tabs").find("a.nav-link").first().addClass("active");
+                            $("#comment_content").find("div.tab-pane").first().addClass("show");
+                            $("#comment_content").find("div.tab-pane").first().addClass("active");
                         });
                         clearInterval(waitTime);
                     }
